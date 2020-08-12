@@ -157,6 +157,9 @@ private:
     msg_info.publisher_gid = {0, {0}};
     msg_info.from_intra_process = true;
 
+    if (!buffer_->has_data()) {
+      return;
+    }
     if (any_callback_.use_take_shared_method()) {
       ConstMessageSharedPtr msg = buffer_->consume_shared();
       any_callback_.dispatch_intra_process(msg, msg_info);
